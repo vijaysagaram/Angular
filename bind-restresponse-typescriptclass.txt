@@ -24,13 +24,13 @@
     jd:JsonData;
       fillFromJSON(json: string,jsonarr: JsonData[]) {
           var jsonObj = JSON.parse(json);                
-          for (var propName in jsonObj) {
+          for (var outerPropName in jsonObj) {
             this.jd = new JsonData();
-            for (var propName1 in jsonObj[propName]) {
-              this.jd[propName1] = jsonObj[propName][propName1];            
+            for (var innerPropName in jsonObj[outerPropName]) {
+              this.jd[innerPropName] = jsonObj[outerPropName][innerPropName];            
             }
             jsonarr.push(this.jd);
-          }  
+          } 
       }
   }
 
