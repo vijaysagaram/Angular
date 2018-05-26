@@ -1,0 +1,42 @@
+// service to invoke rest url and binds array of json to custom type class
+  import { Injectable } from '@angular/core';
+  import { Http } from '@angular/http';
+  import { } from 'rxjs/Operator';
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class DataService {
+  j:JSON;
+  jsonarr:JsonData[]=[];
+    constructor(public http:Http) {
+      this.http = http;
+    }
+    
+    fetchData() {
+      this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe(val => this.j=val.json());
+      new JsonData().fillFromJSON(JSON.stringify(this.j),this.jsonarr);
+      return this.jsonarr;
+    }
+  }
+
+  class Serializable {
+    jd:JsonData;
+      fillFromJSON(json: string,jsonarr: JsonData[]) {
+          var jsonObj = JSON.parse(json);                
+          for (var propName in jsonObj) {
+            this.jd = new JsonData();
+            for (var propName1 in jsonObj[propName]) {
+              this.jd[propName1] = jsonObj[propName][propName1];            
+            }
+            jsonarr.push(this.jd);
+          }  
+      }
+  }
+
+  class JsonData extends Serializable {
+      userId:number;
+      id:number; 
+      title:string;
+      body:string;   
+  }
