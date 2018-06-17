@@ -1,0 +1,22 @@
+
+  <h1>
+    Users List
+  </h1>
+  <ul *ngFor="let item of items; let i=index" class="list-group">
+    <a class="list-group-item active" (click)="toggleuser()"> {{i+1}}.  {{ item.name }}</a> 
+    <div class="item" *ngIf=showdetails>
+      <br><p>Age : {{item.age}}</p>
+      <p>salary : {{item.salary}}</p>
+    </div> <br>
+    <input type="text" [(ngModel)]="item.name" name="name"/>
+  </ul>
+
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let book of datapost" >
+   <h3 class="list-group-item active"> {{book.title}}</h3> <br> <span> {{book.body}} </span>
+  </li>
+</ul> 
+
+
+
+  <button (click)="callservice()"> click here</button>
